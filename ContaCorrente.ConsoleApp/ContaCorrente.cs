@@ -1,32 +1,38 @@
-﻿
-using System.ComponentModel;
+﻿using System.Reflection.Metadata;
 
 namespace ContaCorrente.ConsoleApp
 {
     public class ContaCorrente
     {
-        public int saldo { get; set; }
-        public int numero { get; set; }
-        public int limite { get;  set; }
+        public int saldo;
+        public int numero;
+        public int limite;
 
-        internal void Depositar()
+        public void Depositar(int valor)
         {
-            
+            saldo += valor;
+            limite = saldo;
         }
 
-        internal void Sacar()
+        public void Sacar(int valor)
         {
-  
+            saldo -= valor;
+            limite = saldo;
+            while(limite < 0)
+                Console.WriteLine($"Saldo insuficiente: Saldo em conta = {saldo}");
         }
 
-        internal void TransferirPara(ContaCorrente conta, int valor)
+        public void TransferirPara(ContaCorrente conta, int valor)
         {
+            Sacar(valor);
 
+            conta.saldo += valor;
+            conta.limite = conta.saldo;
         }
 
-        public Movimentacao[] movimentacoes;
+        //public Movimentacao[] movimentacoes;
 
-        internal void ExibirExtrato()
+        public void ExibirExtrato()
         {
             Console.WriteLine($"Conta: {numero}");
             Console.WriteLine($"Saldo: R$ {saldo:F2}");
