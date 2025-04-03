@@ -30,14 +30,14 @@ namespace ContaCorrente.ConsoleApp
             conta.limite = conta.saldo;
         }
 
-        //public Movimentacao[] movimentacoes;
-
         public void ExibirExtrato()
         {
             Console.WriteLine($"Conta: {numero}");
             Console.WriteLine($"Saldo: R$ {saldo:F2}");
             Console.WriteLine($"Limite: R$ {limite:F2}");
         }
+
+        public Movimentacao[] movimentacoes;
 
     }
 }

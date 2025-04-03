@@ -13,7 +13,7 @@
 
             conta1.limite = 0;
 
-            //conta1.movimentacoes = new Movimentacao[10];
+            conta1.movimentacoes = new Movimentacao[10];
 
             conta1.Sacar(200);
 
@@ -31,7 +31,7 @@
 
             conta2.limite = 0;
 
-            //conta2.movimentacoes = new Movimentacao[10];
+            conta2.movimentacoes = new Movimentacao[10];
 
             conta1.TransferirPara(conta2, 400);
 
