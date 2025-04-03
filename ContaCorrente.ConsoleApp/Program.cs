@@ -13,7 +13,7 @@
 
             conta1.limite = 0;
 
-            conta1.movimentacoes = new Movimentacao[10];
+          conta1.movimentacoes = new Movimentacao[10];
 
             conta1.Sacar(200);
 

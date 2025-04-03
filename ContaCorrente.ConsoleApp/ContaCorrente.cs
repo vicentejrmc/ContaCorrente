@@ -4,17 +4,21 @@ namespace ContaCorrente.ConsoleApp
 {
     public class ContaCorrente
     {
-        public int saldo;
-        public int numero;
-        public int limite;
+        public decimal saldo;
+        public decimal numero;
+        public decimal limite;
+        public decimal credito;
+        public decimal debito;
 
-        public void Depositar(int valor)
+        public Movimentacao[] movimentacoes;
+
+        public void Depositar(decimal valor)
         {
             saldo += valor;
             limite = saldo;
         }
 
-        public void Sacar(int valor)
+        public void Sacar(decimal valor)
         {
             saldo -= valor;
             limite = saldo;
@@ -22,7 +26,7 @@ namespace ContaCorrente.ConsoleApp
                 Console.WriteLine($"Saldo insuficiente: Saldo em conta = {saldo}");
         }
 
-        public void TransferirPara(ContaCorrente conta, int valor)
+        public void TransferirPara(ContaCorrente conta, decimal valor)
         {
             Sacar(valor);
 
@@ -32,12 +36,19 @@ namespace ContaCorrente.ConsoleApp
 
         public void ExibirExtrato()
         {
-            Console.WriteLine($"Conta: {numero}");
-            Console.WriteLine($"Saldo: R$ {saldo:F2}");
-            Console.WriteLine($"Limite: R$ {limite:F2}");
-        }
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine($"Extrado da Conta: #{numero}");
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine("Movimentações:");
+            Console.WriteLine("-------------------------------");
 
-        public Movimentacao[] movimentacoes;
+            Console.WriteLine($"Crédito: {credito:F2}");
+            Console.WriteLine($"Débito: {debito:F2}");
+
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine($"Saldo Atual: R$ {saldo:F2}");
+ 
+        }
 
     }
 }

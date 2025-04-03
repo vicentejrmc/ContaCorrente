@@ -2,15 +2,17 @@
 {
     public class Movimentacao
     {
-        public int numero;
-        public int saldo;
-        public int limite;
+        public decimal debito;
+        public decimal saldo;
 
-        public void Movimentacoes(int numero, int saldo, int limite )
+        public void Credito(decimal valor)
         {
-            this.saldo = saldo;
-            this.limite = limite;
-            this.numero = numero;
+            saldo = valor;
+        }
+
+        public void Debito(decimal valor)
+        {
+            debito = valor;
         }
 
     }
