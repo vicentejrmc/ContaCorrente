@@ -7,31 +7,46 @@ namespace ContaCorrente.ConsoleApp
         public decimal saldo;
         public decimal numero;
         public decimal limite;
-        public decimal credito;
-        public decimal debito;
-
         public Movimentacao[] movimentacoes;
 
         public void Depositar(decimal valor)
         {
             saldo += valor;
             limite = saldo;
+
+            Movimentacao movimentacao = new Movimentacao();
+            movimentacao.debito = valor;
+            movimentacao.tipo = "Credito";
+            movimentacao.descricao = $"Crédito de R$  {valor:F2} R$";
+
+            int posicaoVazia = PegaPosicaoVazia();
+
+            movimentacoes[posicaoVazia] = movimentacao;
         }
 
         public void Sacar(decimal valor)
         {
-            saldo -= valor;
-            limite = saldo;
-            while(limite < 0)
-                Console.WriteLine($"Saldo insuficiente: Saldo em conta = {saldo}");
+            if (valor < saldo + limite)
+            {
+                saldo -= valor;
+                limite = saldo;
+
+                Movimentacao movimentacao = new Movimentacao();
+                movimentacao.debito = valor;
+                movimentacao.tipo = "Débito";
+                movimentacao.descricao = $"Débito de R$ {valor:F2} R$";
+
+                int posicaoVazia = PegaPosicaoVazia();
+
+                movimentacoes[posicaoVazia] =  movimentacao;
+            }         
         }
 
-        public void TransferirPara(ContaCorrente conta, decimal valor)
+        public void TransferirPara(ContaCorrente contaDestinada, decimal valor)
         {
-            Sacar(valor);
+            this.Sacar(valor);
 
-            conta.saldo += valor;
-            conta.limite = conta.saldo;
+            contaDestinada.Depositar(valor);
         }
 
         public void ExibirExtrato()
@@ -42,12 +57,24 @@ namespace ContaCorrente.ConsoleApp
             Console.WriteLine("Movimentações:");
             Console.WriteLine("-------------------------------");
 
-            Console.WriteLine($"Crédito: {credito:F2}");
-            Console.WriteLine($"Débito: {debito:F2}");
+            foreach (Movimentacao movimentacao in movimentacoes)
+            {
+                if (movimentacao != null)
+                    Console.WriteLine(movimentacao.descricao);
+            }
 
             Console.WriteLine("--------------------------------");
             Console.WriteLine($"Saldo Atual: R$ {saldo:F2}");
- 
+        }
+
+        public int PegaPosicaoVazia()
+        {
+            for (int i = 0; i < movimentacoes.Length; i++)
+            {
+                if (movimentacoes[i] == null)
+                    return i;
+            }
+            return - 1;
         }
 
     }

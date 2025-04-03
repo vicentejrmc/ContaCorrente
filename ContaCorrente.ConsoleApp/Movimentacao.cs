@@ -2,18 +2,8 @@
 {
     public class Movimentacao
     {
+        public string tipo;
         public decimal debito;
-        public decimal saldo;
-
-        public void Credito(decimal valor)
-        {
-            saldo = valor;
-        }
-
-        public void Debito(decimal valor)
-        {
-            debito = valor;
-        }
-
+        public string descricao;
     }
 }
